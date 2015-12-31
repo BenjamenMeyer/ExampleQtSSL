@@ -1,3 +1,6 @@
+build
+*.pem
+
 # Compiled Object files
 *.slo
 *.lo

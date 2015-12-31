@@ -1,0 +1,16 @@
+SET(SERVER_PROGRAM_EXE exampleQtSslServer)
+SET(THE_SERVER_INCLUDE_DIR ${CMAKE_CURRENT_LIST_DIR}/../include)
+
+SET(THE_COMMON_LIB_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/common/include)
+FILE(GLOB_RECURSE common_lib_include ${THE_COMMON_LIB_INCLUDE_DIR}/*.h)
+
+FILE(GLOB_RECURSE server_header_files ${THE_SERVER_INCLUDE_DIR}/*.h)
+FILE(GLOB_RECURSE server_source_files *.cpp)
+
+INCLUDE_DIRECTORIES(${THE_SERVER_INCLUDE_DIR} ${CMAKE_HOME_DIRECTORY}/common/include)
+
+SET(SERVER_SOURCES ${server_source_files} ${server_header_files} ${common_lib_include})
+
+ADD_EXECUTABLE(${SERVER_PROGRAM_EXE} ${SERVER_SOURCES})
+ADD_DEPENDENCIES(${SERVER_PROGRAM_EXE} exampleQtSslCommon)
+TARGET_LINK_LIBRARIES(${SERVER_PROGRAM_EXE} Qt5::Widgets Qt5Network Qt5::Gui exampleQtSslCommon)

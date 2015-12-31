@@ -19,6 +19,7 @@ tcpSocket::~tcpSocket()
     thread.quit();
     thread.wait();
     }
+
 bool tcpSocket::isServerSocket() const
     {
     return server_side_socket;
@@ -175,13 +176,11 @@ void tcpSocket::setSocketDescriptor(qintptr socketDescriptor)
         {
         socket.data()->setSocketDescriptor(socketDescriptor);
 		// For now disable SSL Verification - just we can get going.
-		// TODO: Add in proper SSL configuration with PEM files, etc
 		socket.data()->setPeerVerifyMode(QSslSocket::VerifyNone);
         socket.data()->moveToThread(&thread);
 
         socketManager.setupSocket(socket);
         connect(socket.data(), SIGNAL(disconnected()), &thread, SLOT(quit()));
-		//connect(socket.data(), SIGNAL(connected()), this, SLOT(onConnected()));
 		connect(socket.data(), SIGNAL(encrypted()), this, SLOT(encrypted()));
 		connect(socket.data(), SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(onSocketError(QAbstractSocket::SocketError)));
 		connect(socket.data(), SIGNAL(sslErrors(const QList<QSslError>&)), this, SLOT(onSslErrors(const QList<QSslError>&)));
@@ -192,9 +191,6 @@ void tcpSocket::setSocketDescriptor(qintptr socketDescriptor)
         thread.start();
         }
     }
-void tcpSocket::onConnected()
-	{
-	}
 void tcpSocket::encrypted()
 	{
 	Q_EMIT logMessage("Connection Encrypted");

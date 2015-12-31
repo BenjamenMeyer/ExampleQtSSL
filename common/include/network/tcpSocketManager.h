@@ -66,9 +66,6 @@ namespace exampleQtSsl
                 protected Q_SLOTS:
                     void dataAvailable();
 					void socketStateChanged(QAbstractSocket::SocketState _state);
-
-                private:
-                private Q_SLOTS:
                 };
 
             }

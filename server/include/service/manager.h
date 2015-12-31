@@ -45,9 +45,6 @@ namespace exampleQtSsl
                 protected Q_SLOTS:
                     void newConnection();
                     void acceptError(QAbstractSocket::SocketError socketError);
-
-                private:
-                private Q_SLOTS:
                 };
             typedef QPointer<manager> ptrManager;
 

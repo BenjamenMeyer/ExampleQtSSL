@@ -24,7 +24,6 @@ namespace exampleQtSsl
 
 					exampleQtSsl::server::session::ptrClientSession newClientSession();
 
-				public Q_SLOTS:
 				Q_SIGNALS:
                     void logMessage(QString _message);
 
@@ -44,8 +43,6 @@ namespace exampleQtSsl
 				protected Q_SLOTS:
 
 					void linkToMasterSession(QString _session_id, QString _sub_session_id);
-				private:
-				private Q_SLOTS:
 				};
 			}
 		}

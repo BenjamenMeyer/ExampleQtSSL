@@ -43,8 +43,6 @@ namespace exampleQtSsl
 
                     bool isServerSocket() const;
 
-                public Q_SLOTS:
-
                 Q_SIGNALS:
 					void close();
                     void sendMessage(QByteArray _data);
@@ -53,8 +51,6 @@ namespace exampleQtSsl
                     void receiveJson(QByteArray _jsonDocument);
                     void logMessage(QString _message);
 
-                protected:
-                protected Q_SLOTS:
                 private:
                     // thread for the socket
                     QThread thread;
@@ -68,7 +64,6 @@ namespace exampleQtSsl
 					QSslCertificate sslCertificate;
 
                 private Q_SLOTS:
-					void onConnected();
 					void encrypted();
 					void onSocketError(QAbstractSocket::SocketError _error);
 					void onSslErrors(const QList<QSslError>& errors);

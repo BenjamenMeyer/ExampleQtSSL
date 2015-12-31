@@ -27,7 +27,6 @@ namespace exampleQtSsl
 					void setSslKey(QSslKey& _key);
 					void setSslCertificate(QSslCertificate& _certificate);
 
-                public Q_SLOTS:
                 Q_SIGNALS:
                     // new client connections that live in their own threads
                     // the parameter should only be used to establish signals/slot
@@ -38,13 +37,10 @@ namespace exampleQtSsl
                 protected:
                     virtual void incomingConnection(qintptr socketDescriptor);
 
-                protected Q_SLOTS:
                 private:
                     exampleQtSsl::common::network::listTcpSocket clients;
 					QSslKey sslKey;
 					QSslCertificate sslCertificate;
-
-                private Q_SLOTS:
                 };
 
             typedef QPointer<tcpServer> ptrTcpServer;

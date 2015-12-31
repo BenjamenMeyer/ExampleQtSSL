@@ -25,4 +25,3 @@ void manager::add_data()
 void manager::remove_data()
 	{
 	}
-

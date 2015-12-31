@@ -36,10 +36,6 @@ namespace exampleQtSsl
 
 					exampleQtSsl::common::network::tcpSocket control;
 					exampleQtSsl::common::network::listTcpSocket data;
-
-				protected Q_SLOTS:
-				private:
-				private Q_SLOTS:
 				};
 			}
 		}

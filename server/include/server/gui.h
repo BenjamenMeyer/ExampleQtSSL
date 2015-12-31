@@ -54,11 +54,6 @@ namespace exampleQtSsl
                     exampleQtSsl::common::logger::logger log;
 
                     void createLayout();
-
-                protected Q_SLOTS:
-
-                private:
-                private Q_SLOTS:
                 };
             }
         }

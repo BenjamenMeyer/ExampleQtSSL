@@ -6,10 +6,10 @@ using namespace exampleQtSsl::server::network;
 tcpServer::tcpServer(QObject* _parent) : QTcpServer(_parent)
     {
     }
-
 tcpServer::~tcpServer()
     {
     }
+
 void tcpServer::setSslKey(QSslKey& _key)
 	{
 	sslKey = _key;

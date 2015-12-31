@@ -48,10 +48,6 @@ namespace exampleQtSsl
 
 					void processMessage(QJsonObject _message);
 					void loadSession(QJsonObject _message);
-
-				protected Q_SLOTS:
-				private:
-				private Q_SLOTS:
 				};
 
 			typedef QSharedPointer<clientSession> ptrClientSession;

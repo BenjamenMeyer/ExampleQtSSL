@@ -24,18 +24,11 @@ namespace exampleQtSsl
                 public Q_SLOTS:
                     void logMessage(QString _message);
 
-                Q_SIGNALS:
                 protected:
 					QString name;
                     QFile logFile;
                     QTextStream theLog;
-
-                protected Q_SLOTS:
-                private:
-                private Q_SLOTS:
                 };
-            //QPointer<logger> ptrLogger;
-
             }
         }
     }

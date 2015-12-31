@@ -21,21 +21,6 @@
 	parser.addOption(option);				\
 	}
 
-#define ADD_COMMAND_LINE_OPTION2(optionName, name, description, defaultValue, parser) \
-	QCommandLineOption optionName(name);		\
-	optionName.setDescription(description);		\
-	optionName.setDefaultValue(defaultValue);	\
-	parser.addOption(optionName);				\
-
-#define ADD_COMMAND_LINE_OPTION3(name, description, defaultValue, parser) \
-	{										\
-	parser.addPositionalArgument(name, 		\
-	QCommandLineOption option(name);		\
-	option.setDescription(description);		\
-	option.setDefaultValue(defaultValue);	\
-	parser.addOption(option);				\
-	}
-
 #define OPTION_SSL_KEY			"ssl-key"
 #define OPTION_SSL_CERTIFICATE	"ssl-certificate" 
 
@@ -56,29 +41,6 @@ int main(int argc, char* argv[])
 
 	QString sslKeyFileName = argumentParser.value(OPTION_SSL_KEY);
 	QString sslCertificateFileName = argumentParser.value(OPTION_SSL_CERTIFICATE);
-
-	auto allOptions = argumentParser.optionNames();
-	for (auto iter = allOptions.begin(); iter != allOptions.end(); ++iter)
-		{
-		fprintf(stderr, "Option: %s (Active? %s) => %s\n",
-				iter->toLatin1().data(),
-				argumentParser.isSet((*iter)) ? "TRUE" : "FALSE",
-				argumentParser.value((*iter)).toLatin1().data());
-		}
-	auto allPositionArgs = argumentParser.positionalArguments();
-	for (auto iter = allPositionArgs.begin(); iter != allPositionArgs.end(); ++iter)
-		{
-		fprintf(stderr, "Positional Argument: %s (Active? %s) => %s\n",
-				iter->toLatin1().data(),
-				argumentParser.isSet((*iter)) ? "TRUE" : "FALSE",
-				argumentParser.value((*iter)).toLatin1().data());
-		}
-	auto unknownArgs = argumentParser.unknownOptionNames();
-	for (auto iter = allPositionArgs.begin(); iter != allPositionArgs.end(); ++iter)
-		{
-		fprintf(stderr, "Unknown Argument: %s\n",
-				iter->toLatin1().data());
-		}
 
 	fprintf(stderr, "SSL Key File: %s\n", sslKeyFileName.toLatin1().data());
 	fprintf(stderr, "SSL Certificate File: %s\n", sslKeyFileName.toLatin1().data());

@@ -3,8 +3,6 @@
 #include <QJsonDocument>
 #include <QUuid>
 
-using namespace exampleQtSsl::server::session;
-
 clientSession::clientSession(QObject* _parent) : QObject(_parent)
 	{
 	}

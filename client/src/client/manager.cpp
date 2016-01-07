@@ -1,7 +1,5 @@
 #include <client/manager.h>
 
-using namespace exampleQtSsl::client::network;
-
 manager::manager(QObject* _parent) : QObject(_parent), control(NULL)
 	{
 	connect(&control, SIGNAL(logMessage(QString)), this, SIGNAL(logMessage(QString)));

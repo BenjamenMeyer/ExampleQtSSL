@@ -6,71 +6,59 @@
 #include <QString>
 #include <QtNetwork/QSslSocket>
 
-namespace exampleQtSsl
-    {
-    namespace common
-        {
-        namespace network
-            {
+enum messageTypes
+	{
+	jsonMessageType = 1,
+	binaryMessageType = 2
+	};
 
-            enum messageTypes
-                {
-                jsonMessageType = 1,
-                binaryMessageType = 2
-                };
+struct messageHeader
+	{
+	uint32_t length;
+	uint32_t type;
+	};
 
-            struct messageHeader
-                {
-                uint32_t length;
-                uint32_t type;
-                };
+struct jsonMessage
+	{
+	struct messageHeader header;
+	uint8_t* data[];
+	};
 
-            struct jsonMessage
-                {
-                struct messageHeader header;
-                uint8_t* data[];
-                };
+struct binaryMessage
+	{
+	struct messageHeader header;
+	uint8_t* data[];
+	};
 
-            struct binaryMessage
-                {
-                struct messageHeader header;
-                uint8_t* data[];
-                };
+class tcpSocketManager : public QObject
+	{
+	Q_OBJECT
+	public:
+		tcpSocketManager(QObject* _parent=NULL);
+		virtual ~tcpSocketManager();
 
-            class tcpSocketManager : public QObject
-                {
-                Q_OBJECT
-                public:
-                    tcpSocketManager(QObject* _parent=NULL);
-                    virtual ~tcpSocketManager();
+		void setupSocket(QSharedPointer<QSslSocket> _socket);
+		QSharedPointer<QSslSocket> getSocket() const;
 
-                    void setupSocket(QSharedPointer<QSslSocket> _socket);
-                    QSharedPointer<QSslSocket> getSocket() const;
+	public Q_SLOTS:
+		void sendMessage(QByteArray _data);
+		void sendJson(QByteArray _jsonDocument);
 
-                public Q_SLOTS:
-                    void sendMessage(QByteArray _data);
-                    void sendJson(QByteArray _jsonDocument);
+	Q_SIGNALS:
+		void receivedMessage(QByteArray _data);
+		void receivedJson(QByteArray _jsonDocument);
+		void logMessage(QString _message);
 
-                Q_SIGNALS:
-                    void receivedMessage(QByteArray _data);
-                    void receivedJson(QByteArray _jsonDocument);
-                    void logMessage(QString _message);
+	protected:
+		// socket
+		QSharedPointer<QSslSocket> connection;
 
-                protected:
-                    // socket
-                    QSharedPointer<QSslSocket> connection;
+		// receive data
+		void sendData(QByteArray _messageHeader, QByteArray _data);
 
-                    // receive data
-                    void sendData(QByteArray _messageHeader, QByteArray _data);
-
-                protected Q_SLOTS:
-                    void dataAvailable();
-					void socketStateChanged(QAbstractSocket::SocketState _state);
-                };
-
-            }
-        }
-    }
-
+	protected Q_SLOTS:
+		void dataAvailable();
+		void socketStateChanged(QAbstractSocket::SocketState _state);
+	};
 
 #endif //QT_SSL_EXAMPLE_COMMON_TCP_SOCKET_MANAGER_H__

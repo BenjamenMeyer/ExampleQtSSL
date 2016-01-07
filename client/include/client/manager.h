@@ -7,38 +7,29 @@
 
 #include <network/tcpSocket.h>
 
-namespace exampleQtSsl
+class manager : public QObject
 	{
-	namespace client
-		{
-		namespace network
-			{
-			class manager : public QObject
-				{
-				Q_OBJECT
-				public:
-					manager(QObject* _parent=NULL);
-					virtual ~manager();
+	Q_OBJECT
+	public:
+		manager(QObject* _parent=NULL);
+		virtual ~manager();
 
-				public Q_SLOTS:
-					void start_control();
-					void stop_control();
+	public Q_SLOTS:
+		void start_control();
+		void stop_control();
 
-					void add_data();
-					void remove_data();
+		void add_data();
+		void remove_data();
 
-				Q_SIGNALS:
-                    void logMessage(QString _message);
+	Q_SIGNALS:
+		void logMessage(QString _message);
 
-				protected:
-					QHostAddress address;
-					qint16 port;
+	protected:
+		QHostAddress address;
+		qint16 port;
 
-					exampleQtSsl::common::network::tcpSocket control;
-					exampleQtSsl::common::network::listTcpSocket data;
-				};
-			}
-		}
-	}
+		tcpSocket control;
+		listTcpSocket data;
+	};
 
 #endif //QT_SSL_EXAMPLE_CLIENT_CONNECTION_MANAGER_H__

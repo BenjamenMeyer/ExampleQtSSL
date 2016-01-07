@@ -3,8 +3,6 @@
 #include <QDateTime>
 #include <QString>
 
-using namespace exampleQtSsl::common::logger;
-
 logger::logger(QString _name, QObject* _parent) : QObject(_parent), name(_name)
     {
     QDateTime utcnow = QDateTime::currentDateTimeUtc();

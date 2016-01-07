@@ -3,8 +3,6 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 
-using namespace exampleQtSsl::client::gui;
-
 userInterface::userInterface(QWidget* _parent, Qt::WindowFlags _flags): QWidget(_parent, _flags), log(QString("exampleQtSslClient"), NULL)
 	{
 	createLayout();
@@ -13,10 +11,10 @@ userInterface::userInterface(QWidget* _parent, Qt::WindowFlags _flags): QWidget(
     log.moveToThread(&loggingThread);
     loggingThread.start();
 
-	connect(this, SIGNAL(start_service()), &manager, SLOT(start_control()));
-	connect(this, SIGNAL(stop_service()), &manager, SLOT(stop_control()));
-	connect(&manager, SIGNAL(logMessage(QString)), this, SLOT(logMessage(QString)));
-	manager.moveToThread(&serviceThread);
+	connect(this, SIGNAL(start_service()), &theManager, SLOT(start_control()));
+	connect(this, SIGNAL(stop_service()), &theManager, SLOT(stop_control()));
+	connect(&theManager, SIGNAL(logMessage(QString)), this, SLOT(logMessage(QString)));
+	theManager.moveToThread(&serviceThread);
 	serviceThread.start();
 	}
 userInterface::~userInterface()

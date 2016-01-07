@@ -1,7 +1,5 @@
 #include <network/tcpSocketManager.h>
 
-using namespace exampleQtSsl::common::network;
-
 tcpSocketManager::tcpSocketManager(QObject* _parent) : QObject(_parent)
     {
     }

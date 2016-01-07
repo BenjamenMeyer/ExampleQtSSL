@@ -12,51 +12,41 @@
 #include <service/manager.h>
 #include <log/logger.h>
 
-namespace exampleQtSsl
-    {
-    namespace server
-        {
-        namespace gui
-            {
+class userInterface: public QWidget
+	{
+	Q_OBJECT
+	public:
+		userInterface(QSslKey key, QSslCertificate certificate, QWidget* _parent=NULL, Qt::WindowFlags _flags=0);
+		virtual ~userInterface();
 
-            class userInterface: public QWidget
-                {
-                Q_OBJECT
-                public:
-                    userInterface(QSslKey key, QSslCertificate certificate, QWidget* _parent=NULL, Qt::WindowFlags _flags=0);
-                    virtual ~userInterface();
+	public Q_SLOTS:
+		void startService();
+		void stopService();
+		void logMessage(QString _message);
 
-                public Q_SLOTS:
-                    void startService();
-                    void stopService();
-                    void logMessage(QString _message);
+	Q_SIGNALS:
+		void start_service();
+		void stop_service();
+		void send_to_log(QString _message);
 
-                Q_SIGNALS:
-                    void start_service();
-                    void stop_service();
-                    void send_to_log(QString _message);
+	protected:
+		QPointer<QTextEdit> textDisplay;
+		QPointer<QPushButton> buttonStart;
+		QPointer<QPushButton> buttonStop;
 
-                protected:
-                    QPointer<QTextEdit> textDisplay;
-                    QPointer<QPushButton> buttonStart;
-                    QPointer<QPushButton> buttonStop;
+		QSslKey sslKey;
+		QSslCertificate sslCertificate;
 
-					QSslKey sslKey;
-					QSslCertificate sslCertificate;
+		// thread that runs the actual service
+		// what it contains will eventually be a thread in a daemon service
+		QThread serviceThread;
+		manager service;
 
-                    // thread that runs the actual service
-                    // what it contains will eventually be a thread in a daemon service
-                    QThread serviceThread;
-                    exampleQtSsl::server::service::manager service;
+		// thread that runs the file logger
+		QThread loggingThread;
+		logger log;
 
-                    // thread that runs the file logger
-                    QThread loggingThread;
-                    exampleQtSsl::common::logger::logger log;
-
-                    void createLayout();
-                };
-            }
-        }
-    }
+		void createLayout();
+	};
 
 #endif //QT_SSL_EXAMPLE_SERVER_GUI_H__

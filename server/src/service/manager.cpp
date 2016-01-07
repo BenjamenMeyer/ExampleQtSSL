@@ -1,7 +1,5 @@
 #include <service/manager.h>
 
-using namespace exampleQtSsl::server::service;
-
 manager::manager(QObject* _parent) : QObject(_parent), address(QHostAddress::Any), port(9000), theTcpServer(this)
     {
     connect(&theTcpServer, SIGNAL(newConnection()), this, SLOT(newConnection()));
@@ -76,7 +74,7 @@ void manager::newConnection()
     QTcpSocket* newTcpConnection = theTcpServer.nextPendingConnection();
     if (newTcpConnection != NULL)
         {
-        exampleQtSsl::common::network::ptrTcpSocket newClient = theTcpServer.getManagerForConnection(newTcpConnection);
+        ptrTcpSocket newClient = theTcpServer.getManagerForConnection(newTcpConnection);
         }
     }
 

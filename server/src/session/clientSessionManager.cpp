@@ -1,7 +1,5 @@
 #include <session/clientSessionManager.h>
 
-using namespace exampleQtSsl::server::session;
-
 clientSessionManager::clientSessionManager(QObject* _parent) : QObject(_parent)
 	{
 	}
@@ -17,7 +15,7 @@ clientSessionManager::~clientSessionManager()
 		}
 	}
 
-exampleQtSsl::server::session::ptrClientSession clientSessionManager::newClientSession()
+ptrClientSession clientSessionManager::newClientSession()
 	{
 	ptrClientSessionInfo newSession = ptrClientSessionInfo(new struct clientSessionInfo);
 	ptrClientSession returnValue;

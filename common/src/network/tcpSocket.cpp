@@ -2,8 +2,6 @@
 
 #include <QMetaType>
 
-using namespace exampleQtSsl::common::network;
-
 static int qAbstractSocket_SocketState_registration = qRegisterMetaType<QAbstractSocket::SocketState>();
 static int qAbstractSocket_SocketError_registration = qRegisterMetaType<QAbstractSocket::SocketError>();
 static int qAbstractSocket_SslErrorList_registration = qRegisterMetaType<QList<QSslError>>();

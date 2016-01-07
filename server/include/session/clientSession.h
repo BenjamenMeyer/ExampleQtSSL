@@ -8,51 +8,41 @@
 #include <QJsonObject>
 #include <QJsonValue>
 
-namespace exampleQtSsl
+class clientSession: public QObject
 	{
-	namespace server
-		{
-		namespace session
-			{
+	Q_OBJECT
+	public:
+		clientSession(QObject* _parent=NULL);
+		virtual ~clientSession();
 
-			class clientSession: public QObject
-				{
-				Q_OBJECT
-				public:
-					clientSession(QObject* _parent=NULL);
-					virtual ~clientSession();
+		QString getSessionId() const;
+		QString getSubSessionId() const;
 
-					QString getSessionId() const;
-					QString getSubSessionId() const;
+	public Q_SLOTS:
+		void receivedMessage(QByteArray _data);
+		void receiveJson(QByteArray _jsonDocument);
 
-				public Q_SLOTS:
-                    void receivedMessage(QByteArray _data);
-                    void receiveJson(QByteArray _jsonDocument);
+		// to client
+		void sendBinaryMessage(QByteArray _key, QByteArray _data);
 
-					// to client
-					void sendBinaryMessage(QByteArray _key, QByteArray _data);
+	Q_SIGNALS:
+		void sendMessage(QByteArray _data);
+		void sendJson(QByteArray _jsonDocument);
+		void logMessage(QString _message);
 
-				Q_SIGNALS:
-                    void sendMessage(QByteArray _data);
-                    void sendJson(QByteArray _jsonDocument);
-                    void logMessage(QString _message);
+		// from client
+		void receiveBinaryMessage(QByteArray _key, QByteArray _data);
 
-					// from client
-					void receiveBinaryMessage(QByteArray _key, QByteArray _data);
+	protected:
+		QJsonValue session_id;
+		QJsonValue sub_session_id;
 
-				protected:
-					QJsonValue session_id;
-					QJsonValue sub_session_id;
+		static QUuid createSessionId();
 
-					static QUuid createSessionId();
+		void processMessage(QJsonObject _message);
+		void loadSession(QJsonObject _message);
+	};
 
-					void processMessage(QJsonObject _message);
-					void loadSession(QJsonObject _message);
-				};
-
-			typedef QSharedPointer<clientSession> ptrClientSession;
-			}
-		}
-	}
+typedef QSharedPointer<clientSession> ptrClientSession;
 
 #endif //QT_SSL_EXAMPLE_CLIENT_SESSION_H__

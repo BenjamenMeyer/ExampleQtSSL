@@ -4,8 +4,6 @@
 #include <QVBoxLayout>
 
 
-using namespace exampleQtSsl::server::gui;
-
 userInterface::userInterface(QSslKey key, QSslCertificate certificate, QWidget* _parent, Qt::WindowFlags _flags): QWidget(_parent, _flags), sslKey(key), sslCertificate(certificate), log(QString("exampleQtSslServer"), NULL)
 	{
 	createLayout();

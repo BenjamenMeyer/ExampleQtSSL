@@ -9,43 +9,34 @@
 
 #include <session/clientSession.h>
 
-namespace exampleQtSsl
+class clientSessionManager : public QObject
 	{
-	namespace server
-		{
-		namespace session
+	Q_OBJECT
+	public:
+		clientSessionManager(QObject* _parent=NULL);
+		virtual ~clientSessionManager();
+
+		ptrClientSession newClientSession();
+
+	Q_SIGNALS:
+		void logMessage(QString _message);
+
+	protected:
+		struct clientSessionInfo
 			{
-			class clientSessionManager : public QObject
-				{
-				Q_OBJECT
-				public:
-					clientSessionManager(QObject* _parent=NULL);
-					virtual ~clientSessionManager();
+			QThread thread;
+			ptrClientSession session;
+			QString controlSession;
+			QStringList dataSessions;
+			};
+		typedef QSharedPointer<struct clientSessionInfo> ptrClientSessionInfo;
+		typedef QList<ptrClientSessionInfo> clientSessionList;
 
-					exampleQtSsl::server::session::ptrClientSession newClientSession();
+		clientSessionList sessionList;
 
-				Q_SIGNALS:
-                    void logMessage(QString _message);
+	protected Q_SLOTS:
 
-				protected:
-					struct clientSessionInfo
-						{
-						QThread thread;
-						exampleQtSsl::server::session::ptrClientSession session;
-						QString controlSession;
-						QStringList dataSessions;
-						};
-					typedef QSharedPointer<struct clientSessionInfo> ptrClientSessionInfo;
-					typedef QList<ptrClientSessionInfo> clientSessionList;
-
-					clientSessionList sessionList;
-
-				protected Q_SLOTS:
-
-					void linkToMasterSession(QString _session_id, QString _sub_session_id);
-				};
-			}
-		}
-	}
+		void linkToMasterSession(QString _session_id, QString _sub_session_id);
+	};
 
 #endif //QT_SSL_EXAMPLE_CLIENT_SESSION_MANAGER_H__

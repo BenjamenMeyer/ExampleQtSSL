@@ -10,45 +10,36 @@
 #include <log/logger.h>
 #include <client/manager.h>
 
-namespace exampleQtSsl
-    {
-    namespace client
-        {
-		namespace gui
-			{
-			class userInterface : public QWidget
-				{
-				Q_OBJECT
-				public:
-					userInterface(QWidget *parent = NULL, Qt::WindowFlags _flags=0);
-					virtual ~userInterface();
+class userInterface : public QWidget
+	{
+	Q_OBJECT
+	public:
+		userInterface(QWidget *parent = NULL, Qt::WindowFlags _flags=0);
+		virtual ~userInterface();
 
-				public Q_SLOTS:
-                    void startService();
-                    void stopService();
-					void logMessage(QString _message);
+	public Q_SLOTS:
+		void startService();
+		void stopService();
+		void logMessage(QString _message);
 
-				Q_SIGNALS:
-                    void start_service();
-                    void stop_service();
-                    void send_to_log(QString _message);
+	Q_SIGNALS:
+		void start_service();
+		void stop_service();
+		void send_to_log(QString _message);
 
-				protected:
-                    QPointer<QTextEdit> textDisplay;
-                    QPointer<QPushButton> buttonStart;
-                    QPointer<QPushButton> buttonStop;
+	protected:
+		QPointer<QTextEdit> textDisplay;
+		QPointer<QPushButton> buttonStart;
+		QPointer<QPushButton> buttonStop;
 
-                    // thread that runs the file logger
-                    QThread loggingThread;
-                    exampleQtSsl::common::logger::logger log;
+		// thread that runs the file logger
+		QThread loggingThread;
+		logger log;
 
-					QThread serviceThread;
-					exampleQtSsl::client::network::manager manager;
+		QThread serviceThread;
+		manager theManager;
 
-                    void createLayout();
-				};
-			}
-        }
-    }
+		void createLayout();
+	};
 
 #endif // QT_SSL_EXAMPLE_CLIENT_GUI_H__

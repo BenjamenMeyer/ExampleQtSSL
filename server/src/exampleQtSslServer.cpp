@@ -80,7 +80,7 @@ int main(int argc, char* argv[])
 
 	QByteArray certificateData = sslCertificateFile.readAll();
 	QSslCertificate sslCertificate(certificateData);
-    exampleQtSsl::server::gui::userInterface theUserInterface(sslKey, sslCertificate, NULL);
+    userInterface theUserInterface(sslKey, sslCertificate, NULL);
     theUserInterface.show();
     return app.exec();
     }

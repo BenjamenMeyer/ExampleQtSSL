@@ -174,7 +174,6 @@ void tcpSocket::setSocketDescriptor(qintptr socketDescriptor)
         {
         socket.data()->setSocketDescriptor(socketDescriptor);
 		// For now disable SSL Verification - just we can get going.
-		socket.data()->setPeerVerifyMode(QSslSocket::VerifyNone);
         socket.data()->moveToThread(&thread);
 
         socketManager.setupSocket(socket);
@@ -185,7 +184,6 @@ void tcpSocket::setSocketDescriptor(qintptr socketDescriptor)
 
 		socket.data()->setPrivateKey(sslKey);
 		socket.data()->setLocalCertificate(sslCertificate);
-		socket.data()->startServerEncryption();
         thread.start();
         }
     }
